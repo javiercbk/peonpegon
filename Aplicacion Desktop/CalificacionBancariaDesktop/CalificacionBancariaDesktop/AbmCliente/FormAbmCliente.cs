@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace CalificacionBancariaDesktop.AbmCliente
 {
@@ -19,7 +20,7 @@ namespace CalificacionBancariaDesktop.AbmCliente
         private void FormAbmCliente_Load(object sender, EventArgs e)
         {
             string sCnn;
-            sCnn = "data source = localhost\\SQLEXPRESS; initial catalog = GD2C2010; user id = gd; password = gd2010";
+            sCnn = ConfigurationManager.AppSettings["connection_string"];
 
             string sSel = "SELECT * FROM gd_esquema.Maestra WHERE BANC_NOM = 'Banco UTN'";
 
@@ -31,6 +32,7 @@ namespace CalificacionBancariaDesktop.AbmCliente
                 da = new SqlDataAdapter(sSel, sCnn);
                 da.Fill(dt);
                 this.dataGridView1.DataSource = dt;
+                da.Dispose();
                 //this.dataGridView1.DataBind();
             }
             catch (Exception ex)
@@ -40,6 +42,11 @@ namespace CalificacionBancariaDesktop.AbmCliente
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
