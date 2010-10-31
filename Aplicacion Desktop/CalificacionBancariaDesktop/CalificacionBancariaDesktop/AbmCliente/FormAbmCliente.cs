@@ -19,7 +19,7 @@ namespace CalificacionBancariaDesktop.AbmCliente
         private void FormAbmCliente_Load(object sender, EventArgs e)
         {
             string sCnn;
-            sCnn = "data source = localhost\\SQLSERVER2005; initial catalog = GD2C2010; user id = gd; password = gd2010";
+            sCnn = "data source = localhost\\SQLEXPRESS; initial catalog = GD2C2010; user id = gd; password = gd2010";
 
             string sSel = "SELECT * FROM gd_esquema.Maestra WHERE BANC_NOM = 'Banco UTN'";
 
