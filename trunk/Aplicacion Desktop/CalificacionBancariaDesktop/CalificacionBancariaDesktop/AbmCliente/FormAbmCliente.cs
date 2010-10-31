@@ -86,7 +86,7 @@ namespace CalificacionBancariaDesktop.AbmCliente
             string sCnn;
             sCnn = ConfigurationManager.AppSettings["connection_string"];
 
-            string sSelCombo1 = "SELECT BANC_ID,BANC_NOM FROM gd_esquema.Bancos";
+            string sSelCombo1 = "SELECT BANC_NOM FROM gd_esquema.bancos";
 
             SqlDataAdapter da;
             DataTable dtCombo1 = new DataTable();
