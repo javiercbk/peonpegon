@@ -58,6 +58,7 @@ CREATE TABLE [gd_esquema].[cuentas](
 [SUC_ID] [int] NOT NULL,
 [FEC_CREA][smalldatetime] NOT NULL,
 [ENABLED] [bit] NULL,
+[SALDO] [real] NULL,
 Primary Key ([CUE_COD]),
 Foreign Key ([CLI_ID]) references [gd_esquema].[clientes]([CLI_ID]),
 Foreign Key ([SUC_ID]) references [gd_esquema].[sucursales]([SUC_ID])
