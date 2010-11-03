@@ -88,14 +88,13 @@ GO
 DROP PROCEDURE migrar_plazo_fijos
 GO
 CREATE PROCEDURE migrar_plazo_fijos AS
-	-- VER SI SIRVE DE ALGO EL DISTINCT PUDE SER QUE ESTE MAL
 	INSERT INTO gd_esquema.plazo_fijos (PF_IMPOR, PF_FCREA, PF_FFIN, PF_PORC, PF_MONEDA, CLI_ID, SUC_ID)
 	(SELECT DISTINCT m.PF_IMPOR, m.PF_FCREA, m.PF_FFIN, m.PF_PORC, o.MON_ID, c.CLI_ID, s.SUC_ID
 		FROM gd_esquema.Maestra AS m
-		INNER JOIN gd_esquema.clientes AS c ON 
-		(c.CLI_DNI = m.CLI_DNI AND c.CLI_COD = m.CLI_COD AND c.CLI_NOMB = m.CLI_NOMB AND c.CLI_APELLIDO = m.CLI_APELLIDO)
-		INNER JOIN gd_esquema.monedas AS o ON (m.PF_MONEDA_COD = o.MON_ID)
 		INNER JOIN gd_esquema.sucursales AS s ON (m.BANC_DIR = s.SUC_DIR AND m.BANC_DIR_NRO = s.SUC_DIR_NRO)
+		INNER JOIN gd_esquema.clientes AS c ON 
+		(c.CLI_DNI = m.CLI_DNI AND c.SUC_ID = s.SUC_ID)
+		INNER JOIN gd_esquema.monedas AS o ON (m.PF_MONEDA_COD = o.MON_ID)
 		WHERE m.PF_COD != 0 AND m.PF_COD IS NOT NULL)
 GO
 
