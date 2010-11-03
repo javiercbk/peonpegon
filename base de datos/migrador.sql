@@ -51,7 +51,6 @@ CREATE PROCEDURE migrar_cuentas AS
 					FROM gd_esquema.cuentas AS c1
 					WHERE c1.CUE_COD = m.CHE_CUE_ORIGEN AND c.CLI_ID = c1.CLI_ID))-- QUE NO ESTEN YA CARGADAS
 	UPDATE gd_esquema.cuentas SET ENABLED = 1 -- Habilito todas
-	UPDATE gd_esquema.cuentas SET SALDO = 0 -- SETEO SALDO EN 0 PARA CALCULARLO LUEGO
 GO
 
 DROP PROCEDURE migrar_monedas
@@ -144,8 +143,21 @@ DROP PROCEDURE migrar_cheques
 GO
 CREATE PROCEDURE migrar_cheques AS
 	INSERT INTO gd_esquema.cheques (CHE_CUE_ORIGEN, CHE_CUE_DESTINO, CHE_NRO, CHE_MONTO, CHE_FECHA, CHE_MONEDA)
-	SELECT DISTINCT m.CHE_CUE_ORIGEN, m.CHE_CUE_DESTINO, m.CHE_NRO, m.CHE_MONTO, m.CHE_FECHA, o.MON_ID
+	(SELECT DISTINCT co.CUE_ID, cd.CUE_ID, m.CHE_NRO, m.CHE_MONTO, m.CHE_FECHA, o.MON_ID
 	FROM gd_esquema.Maestra AS m
-	INNER JOIN gd_esquema.monedas AS o ON (o.MON_ID = m.CHE_MONEDA)
-	WHERE m.CHE_MONTO > 0
+	INNER JOIN gd_esquema.monedas AS o ON (o.MON_ID = m.CHE_MONEDA) -- Moneda
+	INNER JOIN gd_esquema.cuentas AS co ON (co.CUE_COD = m.CHE_CUE_ORIGEN) -- ID de la cuenta de origen
+	INNER JOIN gd_esquema.cuentas AS cd ON (cd.CUE_COD = m.CHE_CUE_DESTINO) -- ID de la cuenta de destino
+	WHERE m.CHE_MONTO > 0)
+GO
+
+DROP PROCEDURE migrar_transferencias
+GO
+CREATE PROCEDURE migrar_transferencias AS
+	INSERT INTO gd_esquema.transferencias (TRA_CUE_ORIGEN, TRA_CUE_DESTINO, TRA_FECHA, TRA_MONTO, TRA_MONEDA)
+	(SELECT DISTINCT co.CUE_ID, cd.CUE_ID, m.TRA_FECHA, m.TRA_MONTO, o.MON_ID
+	FROM gd_esquema.Maestra AS m
+	LEFT JOIN gd_esquema.cuentas AS co ON (co.CUE_COD = m.TRA_CUE_ORIGEN) -- ID de la cuenta de origen
+	LEFT JOIN gd_esquema.cuentas AS cd ON (cd.CUE_COD = m.TRA_CUE_DESTINO) -- ID de la cuenta de destino
+	INNER JOIN gd_esquema.monedas AS o ON(o.MON_ID = m.TRA_MONEDA))
 GO
