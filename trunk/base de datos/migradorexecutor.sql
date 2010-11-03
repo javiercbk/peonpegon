@@ -3,6 +3,7 @@ GO
 /*
 EXEC sp_msforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all"
 GO
+DELETE FROM gd_esquema.tarjetas_audit
 DELETE FROM gd_esquema.transferencias
 DELETE FROM gd_esquema.cheques
 DELETE FROM gd_esquema.pagos
@@ -55,3 +56,17 @@ SELECT COUNT(SUC_ID) AS sucursales_totales FROM gd_esquema.sucursales
 SELECT COUNT(BANC_ID) AS bancos_totales FROM gd_esquema.bancos
 */
 
+-- CREA LAS ENTRADAS EN LA TABLA DE AUDITORIAS DE TARJETAS	
+-- DROP TRIGGER [gd_esquema].[tar_up_audit_tri]
+CREATE TRIGGER gd_esquema.tar_up_audit_tri ON gd_esquema.tarjetas
+	AFTER UPDATE AS
+		INSERT INTO gd_esquema.tarjetas_audit (CLI_ID, TAR_FCREA, TAR_NRO, ACCION) 
+		(SELECT CLI_ID, TAR_FCREA, TAR_NRO, 'UPDATE' FROM INSERTED)
+GO
+
+-- DROP TRIGGER [gd_esquema].[tar_del_audit_tri]
+CREATE TRIGGER [gd_esquema].[tar_del_audit_tri] ON [gd_esquema].[tarjetas]
+	AFTER DELETE AS
+		INSERT INTO [gd_esquema].[tarjetas_audit] (CLI_ID, TAR_FCREA, TAR_NRO, ACCION) 
+		(SELECT CLI_ID, TAR_FCREA, TAR_NRO, 'DELETE' FROM DELETED)
+GO

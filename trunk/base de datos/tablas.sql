@@ -151,7 +151,7 @@ CREATE TABLE [gd_esquema].[deudas](
 [TAR_DEU_COD_NEGOCIO] [int] NULL,
 Primary Key ([DEUDA_ID]),
 Foreign Key ([TAR_DEU_MONEDA]) references [gd_esquema].[monedas]([MON_ID]),
-Foreign Key ([TAR_NRO]) references [gd_esquema].[tarjetas]([TAR_NRO])
+Foreign Key ([TAR_NRO]) references [gd_esquema].[tarjetas]([TAR_NRO] ) ON DELETE CASCADE
 )
 GO
 
@@ -170,7 +170,7 @@ CREATE TABLE [gd_esquema].[pagos](
 [TAR_PAG_FECHA] [smalldatetime] NOT NULL,
 Primary Key ([PAGO_ID]),
 Foreign Key ([TAR_PAG_MONEDA]) references [gd_esquema].[monedas]([MON_ID]),
-Foreign Key ([TAR_NRO]) references [gd_esquema].[tarjetas]([TAR_NRO])
+Foreign Key ([TAR_NRO]) references [gd_esquema].[tarjetas]([TAR_NRO]) ON DELETE CASCADE
 )
 GO
 
@@ -224,3 +224,42 @@ GO
 
 -- exec sp_msforeachtable @command1="print '?'", @command2="ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
 -- GO
+
+if object_id('gd_esquema.tarjetas_audit') is not null
+begin
+  drop table gd_esquema.tarjetas_audit
+end
+CREATE TABLE [gd_esquema].[tarjetas_audit](
+[CLI_ID] [int] NOT NULL,
+[TAR_FCREA] [smalldatetime] NOT NULL,
+[TAR_NRO] [int] NOT NULL,
+[FECHA_MOD] [smalldatetime] NOT NULL DEFAULT GETDATE(),
+[ACCION] [nchar](10) NOT NULL,
+Primary Key ([TAR_NRO]),
+Foreign Key ([CLI_ID]) references [gd_esquema].[clientes]([CLI_ID]),
+)
+GO
+
+CREATE INDEX taufcrea_indx ON [gd_esquema].[tarjetas_audit] (TAR_FCREA)
+GO
+
+CREATE INDEX taufmod_indx ON [gd_esquema].[tarjetas_audit] (FECHA_MOD)
+GO
+
+if object_id('gd_esquema.proceso_calidad_clientes') is not null
+begin
+  drop table gd_esquema.proceso_calidad_clientes
+end
+CREATE TABLE [gd_esquema].[proceso_calidad_clientes](
+[PROC_ID] [int] NOT NULL,
+[FECHA_PROC] [smalldatetime] NOT NULL DEFAULT GETDATE(),
+[CLI_ID] [int] NOT NULL,
+[BANC_ID] [int] NOT NULL,
+[VALOR_CAL] [int] NOT NULL
+Foreign Key ([CLI_ID]) references [gd_esquema].[clientes]([CLI_ID]),
+Foreign Key ([BANC_ID]) references [gd_esquema].[bancos]([BANC_ID]),
+)
+GO
+
+CREATE INDEX pccfproc_indx ON [gd_esquema].[proceso_calidad_clientes] (FECHA_PROC)
+GO
