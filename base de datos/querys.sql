@@ -1,5 +1,4 @@
 -- SALDO DE LAS CUENTAS
-
 -- TRANSFERENCIAS QUE SE ACREDITAN
 SELECT TRA_CUE_DESTINO, SUM(TRA_MONTO)
 FROM gd_esquema.transferencias
@@ -51,7 +50,3 @@ INNER JOIN gd_esquema.clientes AS c ON (c.CLI_ID = PF.CLI_ID)
 INNER JOIN gd_esquema.sucursales AS s ON (s.SUC_ID = c.SUC_ID)
 INNER JOIN gd_esquema.bancos AS b ON (b.BANC_ID = s.BANC_ID)
 WHERE PF_COD != 0 AND PF_COD IS NOT NULL
-
-SELECT DISTINCT *
-FROM gd_esquema.Maestra AS m
-WHERE m.PF_COD IS NOT NULL AND m.PF_COD != 0
