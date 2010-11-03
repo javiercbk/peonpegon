@@ -29,6 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -41,6 +42,12 @@
     </Compile>
     <Compile Include="AbmCliente\FormAbmCliente.Designer.cs">
       <DependentUpon>FormAbmCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCuenta\FormBuscarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCuenta\FormBuscarCliente.Designer.cs">
+      <DependentUpon>FormBuscarCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmCuenta\FormAbmCuenta.cs">
       <SubType>Form</SubType>
@@ -78,6 +85,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>FormAbmCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmCuenta\FormBuscarCliente.resx">
+      <DependentUpon>FormBuscarCliente.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmCuenta\FormAbmCuenta.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FormAbmCuenta.cs</DependentUpon>
@@ -103,6 +114,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="TransaccionEntreCuentas\FormBuscarCuenta.resx">
+      <DependentUpon>FormBuscarCuenta.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="TransaccionEntreCuentas\FormTransaccionEntreCuentas.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FormTransaccionEntreCuentas.cs</DependentUpon>
@@ -120,6 +135,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="TransaccionEntreCuentas\FormBuscarCuenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransaccionEntreCuentas\FormBuscarCuenta.Designer.cs">
+      <DependentUpon>FormBuscarCuenta.cs</DependentUpon>
     </Compile>
     <Compile Include="TransaccionEntreCuentas\FormTransaccionEntreCuentas.cs">
       <SubType>Form</SubType>
