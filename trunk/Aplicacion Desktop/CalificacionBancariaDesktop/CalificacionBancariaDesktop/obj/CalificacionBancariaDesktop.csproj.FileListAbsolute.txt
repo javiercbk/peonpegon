@@ -28,3 +28,5 @@ C:\Documents and Settings\Marcos\Escritorio\peonpegon\Aplicacion Desktop\Calific
 C:\Documents and Settings\Marcos\Escritorio\peonpegon\Aplicacion Desktop\CalificacionBancariaDesktop\CalificacionBancariaDesktop\obj\Release\CalificacionBancariaDesktop.Properties.Resources.resources
 C:\Documents and Settings\Marcos\Escritorio\peonpegon\Aplicacion Desktop\CalificacionBancariaDesktop\CalificacionBancariaDesktop\obj\Release\CalificacionBancariaDesktop.TransaccionEntreCuentas.FormTransaccionEntreCuentas.resources
 C:\Documents and Settings\Marcos\Escritorio\peonpegon\Aplicacion Desktop\CalificacionBancariaDesktop\CalificacionBancariaDesktop\obj\Release\CalificacionBancariaDesktop.csproj.GenerateResource.Cache
+C:\Documents and Settings\Marcos\Escritorio\peonpegon\Aplicacion Desktop\CalificacionBancariaDesktop\CalificacionBancariaDesktop\obj\Release\CalificacionBancariaDesktop.AbmCuenta.FormBuscarCliente.resources
+C:\Documents and Settings\Marcos\Escritorio\peonpegon\Aplicacion Desktop\CalificacionBancariaDesktop\CalificacionBancariaDesktop\obj\Release\CalificacionBancariaDesktop.TransaccionEntreCuentas.FormBuscarCuenta.resources
