@@ -14,6 +14,8 @@ BEGIN
 	SELECT @proc
 END
 
+SELECT * FROM gd_esquema.proceso_calidad_clientes
+
 SELECT TOP 10 c.* FROM gd_esquema.deudas AS d
 INNER JOIN gd_esquema.tarjetas AS t ON (d.TAR_NRO = t.TAR_NRO)
 INNER JOIN gd_esquema.clientes AS c ON (c.CLI_ID = t.CLI_ID)
